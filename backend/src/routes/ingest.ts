@@ -1,5 +1,5 @@
 import { Router } from "express";
-import prisma from "../prismaClient";   // ✅ use singleton
+import prisma from "../prismaClient"; 
 import { fetchShopifyData } from "../services/shopifyService";
 
 const router = Router();
@@ -44,9 +44,9 @@ router.post("/:tenantId/customers", async (req, res) => {
       });
     }
 
-    res.json({ message: "Customers ingested successfully ✅" });
+    res.json({ message: "Customers ingested successfully" });
   } catch (err) {
-    console.error("❌ Customer ingestion failed:", err);
+    console.error("Customer ingestion failed:", err);
     res.status(500).json({ error: "Failed to ingest customers" });
   }
 });
@@ -90,9 +90,9 @@ router.post("/:tenantId/products", async (req, res) => {
       });
     }
 
-    res.json({ message: "Products ingested successfully ✅" });
+    res.json({ message: "Products ingested successfully" });
   } catch (err) {
-    console.error("❌ Product ingestion failed:", err);
+    console.error("Product ingestion failed:", err);
     res.status(500).json({ error: "Failed to ingest products" });
   }
 });
@@ -198,9 +198,9 @@ router.post("/:tenantId/orders", async (req, res) => {
       }
     }
 
-    res.json({ message: "Orders + Line items (linked to products) ingested ✅" });
+    res.json({ message: "Orders + Line items (linked to products) ingested" });
   } catch (err) {
-    console.error("❌ Order ingestion failed:", err);
+    console.error("Order ingestion failed:", err);
     res.status(500).json({ error: "Failed to ingest orders" });
   }
 });

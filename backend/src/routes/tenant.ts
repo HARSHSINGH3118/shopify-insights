@@ -1,5 +1,5 @@
 import { Router } from "express";
-import prisma from "../prismaClient";   // ✅ use shared Prisma client
+import prisma from "../prismaClient";
 
 const router = Router();
 
@@ -31,7 +31,7 @@ router.post("/", async (req, res) => {
 
     res.json(tenant);
   } catch (error: any) {
-    console.error("❌ Tenant creation failed:", error);
+    console.error("Tenant creation failed:", error);
     res.status(500).json({ error: "Failed to create tenant", details: error.message });
   }
 });
@@ -42,7 +42,7 @@ router.get("/", async (_req, res) => {
     const tenants = await prisma.tenant.findMany();
     res.json(tenants);
   } catch (error: any) {
-    console.error("❌ Failed to fetch tenants:", error);
+    console.error("Failed to fetch tenants:", error);
     res.status(500).json({ error: "Failed to fetch tenants", details: error.message });
   }
 });

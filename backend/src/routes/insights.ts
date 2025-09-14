@@ -1,5 +1,5 @@
 import { Router } from "express";
-import prisma from "../prismaClient";   // ✅ use the singleton client
+import prisma from "../prismaClient"; 
 
 const router = Router();
 
@@ -29,7 +29,7 @@ router.get("/:tenantId/summary", async (req, res) => {
       totalRevenue: totalRevenue.toFixed(2),
     });
   } catch (err) {
-    console.error("❌ Summary failed:", err);
+    console.error("Summary failed:", err);
     res.status(500).json({ error: "Failed to fetch summary" });
   }
 });
@@ -62,7 +62,7 @@ router.get("/:tenantId/orders-by-date", async (req, res) => {
 
     res.json(grouped);
   } catch (err) {
-    console.error("❌ Orders by date failed:", err);
+    console.error("Orders by date failed:", err);
     res.status(500).json({ error: "Failed to fetch orders by date" });
   }
 });
@@ -104,7 +104,7 @@ router.get("/:tenantId/top-customers", async (req, res) => {
 
     res.json(customers);
   } catch (err) {
-    console.error("❌ Top customers failed:", err);
+    console.error("Top customers failed:", err);
     res.status(500).json({ error: "Failed to fetch top customers" });
   }
 });
@@ -149,7 +149,7 @@ router.get("/:tenantId/top-products", async (req, res) => {
 
     res.json(products);
   } catch (err) {
-    console.error("❌ Top products failed:", err);
+    console.error("Top products failed:", err);
     res.status(500).json({ error: "Failed to fetch top products" });
   }
 });

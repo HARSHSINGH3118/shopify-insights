@@ -60,8 +60,8 @@ model Order {
   shopifyOrderId   BigInt
   totalPrice       Decimal   @db.Decimal(10,2)
   currency         String
-  shopifyCreatedAt DateTime       // 👈 original timestamp from Shopify
-  createdAt        DateTime @default(now()) // 👈 local record creation timestamp
+  shopifyCreatedAt DateTime       // original timestamp from Shopify
+  createdAt        DateTime @default(now()) // local record creation timestamp
 
   customerId       String?     
   tenant           Tenant     @relation(fields: [tenantId], references: [id])

@@ -19,12 +19,12 @@ export const fetchShopifyData = async (
         "X-Shopify-Access-Token": accessToken,
         "Content-Type": "application/json",
       },
-      timeout: 10000, // 10s timeout to avoid hanging requests
+      timeout: 10000,
     });
 
     return response.data;
   } catch (error: any) {
-    console.error(`❌ Failed to fetch ${resource} from Shopify:`, {
+    console.error(`Failed to fetch ${resource} from Shopify:`, {
       message: error.message,
       status: error.response?.status,
       details: error.response?.data,
