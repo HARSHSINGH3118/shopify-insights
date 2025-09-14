@@ -1,0 +1,109 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Tenant {
+  id             String          @id @default(cuid())
+  name           String
+  shopDomain     String          @unique
+  apiKey         String
+  apiSecret      String
+  accessToken    String
+  createdAt      DateTime        @default(now())
+  customers      Customer[]
+  products       Product[]
+  orders         Order[]
+  events         Event[]
+  orderLineItems OrderLineItem[]
+}
+
+model Customer {
+  id                String   @id @default(cuid())
+  tenantId          String
+  shopifyCustomerId BigInt
+  email             String?
+  firstName         String?
+  lastName          String?
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+
+  tenant            Tenant   @relation(fields: [tenantId], references: [id])
+  orders            Order[]  
+
+  @@unique([tenantId, shopifyCustomerId])
+}
+
+model Product {
+  id               String          @id @default(cuid())
+  tenantId         String
+  shopifyProductId BigInt
+  title            String
+  description      String          @default("")  
+  price            String
+  createdAt        DateTime        @default(now())
+  updatedAt        DateTime        @updatedAt
+
+  tenant           Tenant          @relation(fields: [tenantId], references: [id])
+  lineItems        OrderLineItem[]
+
+  @@unique([tenantId, shopifyProductId])
+}
+
+model Order {
+  id               String        @id @default(cuid())
+  tenantId         String
+  shopifyOrderId   BigInt
+  totalPrice       Decimal   @db.Decimal(10,2)
+  currency         String
+  shopifyCreatedAt DateTime       // 👈 original timestamp from Shopify
+  createdAt        DateTime @default(now()) // 👈 local record creation timestamp
+
+  customerId       String?     
+  tenant           Tenant     @relation(fields: [tenantId], references: [id])
+  customer         Customer?  @relation(fields: [customerId], references: [id])
+  lineItems        OrderLineItem[]
+
+  @@unique([tenantId, shopifyOrderId])
+}
+
+model OrderLineItem {
+  id             String   @id @default(cuid())
+  tenantId       String
+  orderId        String
+  productId      String?
+  shopifyItemId  BigInt
+  title          String
+  quantity       Int
+  price            Decimal   @db.Decimal(10,2)
+
+  tenant         Tenant   @relation(fields: [tenantId], references: [id])
+  order          Order    @relation(fields: [orderId], references: [id])
+  product        Product? @relation(fields: [productId], references: [id])
+
+  @@unique([tenantId, shopifyItemId])
+  @@index([tenantId, orderId])
+}
+
+enum EventType {
+  CART_UPDATED
+  CHECKOUT_CREATED
+  CHECKOUT_UPDATED
+  ORDER_CANCELLED
+}
+
+model Event {
+  id         String   @id @default(cuid())
+  tenantId   String
+  type       EventType
+  occurredAt DateTime
+  payload    Json
+
+  tenant     Tenant   @relation(fields: [tenantId], references: [id])
+
+  @@index([tenantId, occurredAt])
+}
