@@ -26,13 +26,13 @@ export default function ProductsPage() {
       {products.length === 0 ? (
         <p>No products found</p>
       ) : (
-        <table className="w-full border rounded-lg overflow-hidden shadow">
+        <table className="w-full border border-black rounded-lg overflow-hidden shadow">
           <thead className="bg-gray-100">
             <tr>
-              <th className="p-3 border">Title</th>
-              <th className="p-3 border">Description</th>
-              <th className="p-3 border">Revenue</th>
-              <th className="p-3 border">Quantity</th>
+              <th className="p-3 border border-gray-300">Title</th>
+              <th className="p-3 border border-gray-300">Description</th>
+              <th className="p-3 border border-gray-300">Revenue</th>
+              <th className="p-3 border border-gray-300">Quantity</th>
             </tr>
           </thead>
           <tbody>
@@ -41,14 +41,22 @@ export default function ProductsPage() {
                 key={p.id}
                 className={idx % 2 === 0 ? "bg-white" : "bg-gray-50"}
               >
-                <td className="p-3 border font-semibold">{p.title}</td>
-                <td className="p-3 border">{p.description || "—"}</td>
-                <td className="p-3 border">
+                <td className="p-3 border border-gray-300 font-semibold">
+                  {p.title}
+                </td>
+                <td className="p-3 border border-gray-300">
+                  {p.description ? (
+                    <div dangerouslySetInnerHTML={{ __html: p.description }} />
+                  ) : (
+                    "—"
+                  )}
+                </td>
+                <td className="p-3 border border-gray-300">
                   <span className="bg-green-100 text-green-800 px-2 py-1 rounded">
                     ${p.totalRevenue}
                   </span>
                 </td>
-                <td className="p-3 border">
+                <td className="p-3 border border-gray-300">
                   <span className="bg-blue-100 text-blue-800 px-2 py-1 rounded">
                     {p.totalQuantity}
                   </span>

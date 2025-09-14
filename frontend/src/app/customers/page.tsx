@@ -26,32 +26,33 @@ export default function CustomersPage() {
       {customers.length === 0 ? (
         <p>No customers found</p>
       ) : (
-        <table className="w-full border rounded-lg overflow-hidden shadow">
-          <thead className="bg-gray-100">
-            <tr>
-              <th className="p-3 border">Name</th>
-              <th className="p-3 border">Email</th>
-              <th className="p-3 border">Total Spend</th>
-            </tr>
-          </thead>
-          <tbody>
-            {customers.map((c, idx) => (
-              <tr
-                key={c.id}
-                className={idx % 2 === 0 ? "bg-white" : "bg-gray-50"}
-              >
-                <td className="p-3 border font-semibold">
-                  {idx === 0 ? "🥇" : idx === 1 ? "🥈" : idx === 2 ? "🥉" : ""}{" "}
-                  {c.name}
-                </td>
-                <td className="p-3 border">{c.email || "—"}</td>
-                <td className="p-3 border text-green-600 font-bold">
-                  ${c.totalSpend}
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+        <table className="w-full border border-gray-300 border-collapse rounded-lg overflow-hidden shadow bg-white">
+  <thead className="bg-gray-100">
+    <tr>
+      <th className="p-3 border border-gray-300 text-left">Name</th>
+      <th className="p-3 border border-gray-300 text-left">Email</th>
+      <th className="p-3 border border-gray-300 text-left">Total Spend</th>
+    </tr>
+  </thead>
+  <tbody>
+    {customers.map((c, idx) => (
+      <tr
+        key={c.id}
+        className={idx % 2 === 0 ? "bg-white" : "bg-gray-50"}
+      >
+        <td className="p-3 border border-gray-300 font-semibold">
+          {idx === 0 ? "🥇" : idx === 1 ? "🥈" : idx === 2 ? "🥉" : ""}{" "}
+          {c.name}
+        </td>
+        <td className="p-3 border border-gray-300">{c.email || "—"}</td>
+        <td className="p-3 border border-gray-300 text-green-600 font-bold">
+          ${c.totalSpend}
+        </td>
+      </tr>
+    ))}
+  </tbody>
+</table>
+
       )}
     </div>
   );
