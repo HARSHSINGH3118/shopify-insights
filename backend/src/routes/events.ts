@@ -4,15 +4,15 @@ import prisma from "../prismaClient";
 const router = Router();
 
 /**
- * Ingest custom events (cart, checkout, order cancel)
+ * POST /events/:tenantId → record a custom event
  */
-router.post("/:tenantId/events", async (req, res) => {
+router.post("/:tenantId", async (req, res) => {
   try {
     const { tenantId } = req.params;
     const { type, payload } = req.body;
 
-    if (!type || !payload) {
-      return res.status(400).json({ error: "Missing type or payload" });
+    if (!type) {
+      return res.status(400).json({ error: "Missing event type" });
     }
 
     const tenant = await prisma.tenant.findUnique({ where: { id: tenantId } });
@@ -23,14 +23,37 @@ router.post("/:tenantId/events", async (req, res) => {
         tenantId,
         type,
         occurredAt: new Date(),
-        payload,
+        payload: payload || {},
       },
     });
 
     res.json({ message: "Event ingested", event });
   } catch (err) {
-    console.error("Event ingestion failed:", err);
+    console.error(" Event ingestion failed:", err);
     res.status(500).json({ error: "Failed to ingest event" });
+  }
+});
+
+/**
+ * GET /events/:tenantId → fetch last 20 events
+ */
+router.get("/:tenantId", async (req, res) => {
+  try {
+    const { tenantId } = req.params;
+
+    const tenant = await prisma.tenant.findUnique({ where: { id: tenantId } });
+    if (!tenant) return res.status(404).json({ error: "Tenant not found" });
+
+    const events = await prisma.event.findMany({
+      where: { tenantId },
+      orderBy: { occurredAt: "desc" },
+      take: 20,
+    });
+
+    res.json(events);
+  } catch (err) {
+    console.error("Fetch events failed:", err);
+    res.status(500).json({ error: "Failed to fetch events" });
   }
 });
 

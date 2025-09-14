@@ -9,6 +9,7 @@ import ingestRoutes from "./routes/ingest";
 import insightsRoutes from "./routes/insights";
 import eventsRoutes from "./routes/events";
 import "./scheduler"; 
+import authRoutes from "./routes/auth";
 
 dotenv.config({ path: path.resolve(__dirname, "../.env") });
 
@@ -25,6 +26,7 @@ app.use("/tenants", tenantRoutes);
 app.use("/ingest", authMiddleware, ingestRoutes);
 app.use("/insights", authMiddleware, insightsRoutes);
 app.use("/events", authMiddleware, eventsRoutes);
+app.use("/auth", authRoutes);
 
 app.use((err: any, _req: Request, res: Response, _next: NextFunction) => {
   console.error("Unhandled Error:", err);
