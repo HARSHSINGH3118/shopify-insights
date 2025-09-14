@@ -10,7 +10,6 @@ export default function CustomersPage() {
 
   useEffect(() => {
     if (!tenant) return;
-
     api
       .get(`/insights/${tenant.id}/top-customers`)
       .then((res) => setCustomers(res.data))
@@ -22,25 +21,33 @@ export default function CustomersPage() {
 
   return (
     <div className="p-6">
-      <h1 className="text-2xl font-bold mb-4">Top Customers ({tenant.name})</h1>
+      <h1 className="text-2xl font-bold mb-4">👥 Top Customers ({tenant.name})</h1>
 
       {customers.length === 0 ? (
         <p>No customers found</p>
       ) : (
-        <table className="w-full border">
+        <table className="w-full border rounded-lg overflow-hidden shadow">
           <thead className="bg-gray-100">
             <tr>
-              <th className="p-2 border">Name</th>
-              <th className="p-2 border">Email</th>
-              <th className="p-2 border">Total Spend</th>
+              <th className="p-3 border">Name</th>
+              <th className="p-3 border">Email</th>
+              <th className="p-3 border">Total Spend</th>
             </tr>
           </thead>
           <tbody>
-            {customers.map((c) => (
-              <tr key={c.id} className="text-center">
-                <td className="p-2 border">{c.name}</td>
-                <td className="p-2 border">{c.email || "—"}</td>
-                <td className="p-2 border">${c.totalSpend}</td>
+            {customers.map((c, idx) => (
+              <tr
+                key={c.id}
+                className={idx % 2 === 0 ? "bg-white" : "bg-gray-50"}
+              >
+                <td className="p-3 border font-semibold">
+                  {idx === 0 ? "🥇" : idx === 1 ? "🥈" : idx === 2 ? "🥉" : ""}{" "}
+                  {c.name}
+                </td>
+                <td className="p-3 border">{c.email || "—"}</td>
+                <td className="p-3 border text-green-600 font-bold">
+                  ${c.totalSpend}
+                </td>
               </tr>
             ))}
           </tbody>
