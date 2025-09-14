@@ -87,6 +87,8 @@ model OrderLineItem {
 
   @@unique([tenantId, shopifyItemId])
   @@index([tenantId, orderId])
+  @@unique([tenantId, orderId, productId])
+
 }
 
 enum EventType {
