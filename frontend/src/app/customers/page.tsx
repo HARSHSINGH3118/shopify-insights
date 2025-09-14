@@ -21,7 +21,7 @@ export default function CustomersPage() {
 
   return (
     <div className="p-6">
-      <h1 className="text-2xl font-bold mb-4">👥 Top Customers ({tenant.name})</h1>
+      <h1 className="text-2xl font-bold mb-4">Top Customers ({tenant.name})</h1>
 
       {customers.length === 0 ? (
         <p>No customers found</p>

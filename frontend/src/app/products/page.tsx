@@ -21,7 +21,7 @@ export default function ProductsPage() {
 
   return (
     <div className="p-6">
-      <h1 className="text-2xl font-bold mb-4">📦 Top Products ({tenant.name})</h1>
+      <h1 className="text-2xl font-bold mb-4">Top Products ({tenant.name})</h1>
 
       {products.length === 0 ? (
         <p>No products found</p>

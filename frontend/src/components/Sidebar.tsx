@@ -9,6 +9,7 @@ export default function Sidebar() {
         <Link href="/orders">Orders</Link>
         <Link href="/customers">Customers</Link>
         <Link href="/products">Products</Link>
+        <Link href="/events">Events</Link>
       </nav>
     </aside>
   );

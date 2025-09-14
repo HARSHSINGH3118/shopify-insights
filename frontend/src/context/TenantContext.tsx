@@ -1,6 +1,5 @@
 "use client";
 import { createContext, useContext, useEffect, useState } from "react";
-import api from "@/lib/api";
 
 type Tenant = {
   id: string;
@@ -11,6 +10,7 @@ type Tenant = {
 type TenantContextType = {
   tenant: Tenant | null;
   setTenant: (t: Tenant) => void;
+  logout: () => void;
 };
 
 const TenantContext = createContext<TenantContextType | undefined>(undefined);
@@ -18,17 +18,11 @@ const TenantContext = createContext<TenantContextType | undefined>(undefined);
 export function TenantProvider({ children }: { children: React.ReactNode }) {
   const [tenant, setTenant] = useState<Tenant | null>(null);
 
+  // Load tenant from localStorage on mount
   useEffect(() => {
     const saved = localStorage.getItem("tenant");
     if (saved) {
       setTenant(JSON.parse(saved));
-    } else {
-      api.get("/tenants").then((res) => {
-        if (res.data.length > 0) {
-          setTenant(res.data[0]);
-          localStorage.setItem("tenant", JSON.stringify(res.data[0]));
-        }
-      });
     }
   }, []);
 
@@ -37,8 +31,13 @@ export function TenantProvider({ children }: { children: React.ReactNode }) {
     localStorage.setItem("tenant", JSON.stringify(t));
   };
 
+  const logout = () => {
+    setTenant(null);
+    localStorage.removeItem("tenant");
+  };
+
   return (
-    <TenantContext.Provider value={{ tenant, setTenant: updateTenant }}>
+    <TenantContext.Provider value={{ tenant, setTenant: updateTenant, logout }}>
       {children}
     </TenantContext.Provider>
   );
