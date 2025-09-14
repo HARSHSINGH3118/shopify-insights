@@ -1,16 +1,15 @@
 import "./globals.css";
-import { ReactNode } from "react";
+import Sidebar from "@/components/Sidebar";
+import { TenantProvider } from "../context/TenantContext";
 
-export const metadata = {
-  title: "Shopify Insights",
-  description: "Multi-tenant Shopify Data Ingestion & Insights Dashboard",
-};
-
-export default function RootLayout({ children }: { children: ReactNode }) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
-      <body className="bg-gray-50 text-gray-900 min-h-screen">
-        {children}
+      <body className="flex min-h-screen bg-gray-100">
+        <TenantProvider>
+          <Sidebar />
+          <main className="flex-1 p-6">{children}</main>
+        </TenantProvider>
       </body>
     </html>
   );
