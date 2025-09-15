@@ -4,7 +4,8 @@ A full-stack system that ingests **Shopify store data** (customers, products, an
 
 **Live Links**  
 - **Frontend (Vercel):** [https://shopify-insights-flax.vercel.app](https://shopify-insights-flax.vercel.app)  
-- **Backend (Render):** [https://shopify-insights-oxv7.onrender.com](https://shopify-insights-oxv7.onrender.com)  
+- **Backend (Render):** [https://shopify-insights-oxv7.onrender.com](https://shopify-insights-oxv7.onrender.com)
+- Technical Document: https://drive.google.com/file/d/1pVrOJN82ybUeVUWnsOMZO-Uoe4uG3Qxk/view?usp=sharing
 
 ---
 
