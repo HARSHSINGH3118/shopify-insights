@@ -94,31 +94,31 @@ model Product {
 ### Backend (`/backend`)
 ```
 backend/
-├── prisma/ # Prisma schema & migrations
-│ ├── schema.prisma # DB schema (models: Customer, Order, Product, etc.)
-│ └── migrations/ # Auto-generated migration files
+├── prisma/  
+│ ├── schema.prisma 
+│ └── migrations/ 
 │
 ├── src/
-│ ├── routes/ # Express route handlers
-│ │ ├── auth.ts # Authentication routes
-│ │ ├── events.ts # Event ingestion APIs
-│ │ ├── ingest.ts # Shopify ingestion logic
-│ │ ├── insights.ts # Summary, top-customers, top-products
-│ │ └── tenant.ts # Tenant APIs (list/create tenants)
+│ ├── routes/ 
+│ │ ├── auth.ts  
+│ │ ├── events.ts  
+│ │ ├── ingest.ts  
+│ │ ├── insights.ts  
+│ │ └── tenant.ts  
 │ │
-│ ├── middleware/ # Middleware utilities
-│ │ └── auth.ts # API key validation middleware
+│ ├── middleware/ 
+│ │ └── auth.ts  
 │ │
-│ ├── services/ # External service handlers
-│ │ └── shopifyService.ts # Shopify API integration (customers, orders, products)
+│ ├── services/  
+│ │ └── shopifyService.ts  
 │ │
-│ ├── prismaClient.ts # Prisma Client initialization
-│ ├── scheduler.ts # Cron job for periodic ingestion
-│ └── index.ts # Express server entrypoint
+│ ├── prismaClient.ts  
+│ ├── scheduler.ts  
+│ └── index.ts  
 │
-├── .env # Environment variables (local)
-├── package.json # Dependencies & scripts
-├── tsconfig.json # TypeScript config
+├── .env 
+├── package.json  
+├── tsconfig.json  
 └── README.md
 ```
 ### Frontend (`/frontend`) 
@@ -141,27 +141,27 @@ frontend/
 │ │ ├── page.tsx # Dashboard summary (default homepage)
 │ │ └── layout.tsx # App-wide layout (sidebar, navbar, etc.)
 │ │
-│ ├── components/ # Shared UI components
-│ │ ├── Sidebar.tsx # Sidebar navigation
-│ │ ├── Navbar.tsx # Top navbar (optional)
-│ │ ├── Chart.tsx # Recharts-based chart components
-│ │ └── Card.tsx # Reusable summary/stat card
+│ ├── components/ 
+│ │ ├── Sidebar.tsx 
+│ │ ├── Navbar.tsx  
+│ │ ├── Chart.tsx  
+│ │ └── Card.tsx  
 │ │
 │ ├── context/ # Global contexts
-│ │ └── TenantContext.tsx # Provides tenant session across app
+│ │ └── TenantContext.tsx  
 │ │
 │ ├── lib/ # Utility libraries
-│ │ └── api.ts # Axios API wrapper
+│ │ └── api.ts  
 │ │
-│ ├── styles/ # Global styles
-│ │ └── globals.css # Tailwind CSS base
+│ ├── styles/  
+│ │ └── globals.css  
 │ │
-│ └── types/ # (Optional) TypeScript type definitions
+│ └── types/  
 │
-├── .env.local # Environment variables for frontend
-├── package.json # Dependencies & scripts
-├── tailwind.config.js # Tailwind CSS config
-├── tsconfig.json # TypeScript config
+├── .env.local  
+├── package.json  
+├── tailwind.config.js  
+├── tsconfig.json  
 └── README.md
 ```
 
